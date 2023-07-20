@@ -1,2 +1,8 @@
-void setup(){}
-void loop(){}
+void setup()
+{
+    pinMode(3, HIGH);
+}
+void loop()
+{
+    
+}
