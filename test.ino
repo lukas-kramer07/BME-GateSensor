@@ -1,8 +1,9 @@
 void setup()
 {
-    pinMode(3, HIGH);
+    Serial.begin(9600);
 }
 void loop()
 {
-    
+    Serial.println("Hello"); 
+    delay(200);
 }
