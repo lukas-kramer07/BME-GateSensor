@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Garage Status</title>
 
     <style>
         :root{
-      --background-color: #314453;
+      --background-color: #48515ab3;
       --darker-background-color: #243848;
       --accent-color: #18a8ad;
       --text-color:#FFFFFF;
@@ -31,7 +31,7 @@
             align-items: center;
             text-align: center;
             justify-content: center;
-            background-color: rgba(72, 81, 90, 0.7);
+            background-color: var(--background-color);
             height: min-content;
             width: min(75%, 80vh);
             position: relative;
@@ -58,24 +58,20 @@
             color: var(--text-color);
             font-size: min(4vw, 5vh);
         }
-        .main{
-            max-height: 0vh;
-        }
+
 
     </style>
 
 </head>
 <body onload="Timer()">
-    <div class="main">
-        <div id="StatusDiv" class="content">
-            <h1 id="StatusText">Status</h1>
-            <div id="Status" class="contentAccent">%Status%</div>
-        </div>
-        <br>
-        <div id="TimerDiv" class="content">
-            <h1 id="TimerDescription">Time open</h1>
-            <div id="Timer" class="contentAccent">00:00:00</div>
-        </div>
+    <div id="StatusDiv" class="content">
+        <h1 id="StatusText">Status</h1>
+        <div id="Status" class="contentAccent">%Status%</div>
+    </div>
+    <br>
+    <div id="TimerDiv" class="content">
+        <h1 id="TimerDescription">Time open</h1>
+        <div id="Timer" class="contentAccent">00:00:00</div>
     </div>
 </body>
 
