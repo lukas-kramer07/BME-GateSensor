@@ -18,32 +18,80 @@
         }
         body {
             margin:0;font-family:Arial;
-            background-image: url(https://images.unsplash.com/photo-1484199316358-d7acb93729f2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1790&q=80);
+            background-image: url();
+            background-position: center;
             background-repeat: no-repeat;
             background-attachment: fixed;
             background-size: cover;
             text-align: center;
             align-items: center;
         }
+        .content{
+
+            align-items: center;
+            text-align: center;
+            justify-content: center;
+            background-color: rgba(72, 81, 90, 0.7);
+            height: min-content;
+            width: min(75%, 80vh);
+            position: relative;
+            border-radius: 25px;
+            border: 2px solid white;
+            margin: 0 auto;
+            margin-top: min(5%, 5vh);
+            padding: 20px;
+            color: var(--text-color);
+            font-size:  min(4vw, 5vh);
+        }
+        .contentAccent{
+            align-items: center;
+            text-align: center;
+            justify-content: center;
+            background-color: var(--darker-background-color);
+            height: min-content;
+            width: 75%;
+            position: relative;
+            border-radius: 25px;
+            border: 2px solid white;
+            margin: 0 auto;
+            padding: 20px;
+            color: var(--text-color);
+            font-size: min(4vw, 5vh);
+        }
+        .main{
+            max-height: 0vh;
+        }
+
     </style>
 
 </head>
 <body onload="Timer()">
-    <div id="StatusDiv">
-        <div id="StatusText">Status: %Status%</div>
-    </div>
-    <div id="TimerDiv">
-        <div id="TimerDescription">Time open:</div>
-        <div id="Timer">00:00:00</div>
+    <div class="main">
+        <div id="StatusDiv" class="content">
+            <h1 id="StatusText">Status</h1>
+            <div id="Status" class="contentAccent">%Status%</div>
+        </div>
+        <br>
+        <div id="TimerDiv" class="content">
+            <h1 id="TimerDescription">Time open</h1>
+            <div id="Timer" class="contentAccent">00:00:00</div>
+        </div>
     </div>
 </body>
+
+
+
+
+
+
+
 <script>
     var status = "open";
     setInterval(function ( ) {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("StatusText").innerHTML = `Status: ${this.responseText}`;
+            document.getElementById("Status").innerHTML = this.responseText;
             if (this.responseText != status){
                 status = this.responseText;
                 Timer();
