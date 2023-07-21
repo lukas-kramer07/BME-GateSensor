@@ -13,7 +13,7 @@ void setup()
 void loop()
 {
     Serial.println(HH_MM_SS(millis()/1000));
-    delay(5000);
+    delay(100);
     Serial.println("Distanz: " + String(distanceCM()) + "cm");
 }
 
