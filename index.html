@@ -71,15 +71,9 @@
     <br>
     <div id="TimerDiv" class="content">
         <h1 id="TimerDescription">Time open</h1>
-        <div id="Timer" class="contentAccent">00:00:00</div>
+        <div id="Timer" class="contentAccent">%Timer%</div>
     </div>
 </body>
-
-
-
-
-
-
 
 <script>
     var status = "open";
@@ -88,11 +82,8 @@
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("Status").innerHTML = this.responseText;
-            if (this.responseText != status){
-                status = this.responseText;
-                Timer();
-                document.getElementById("TimerDescription").innerHTML = `Time ${this.responseText}`;
-            }
+            status = this.responseText;
+            document.getElementById("TimerDescription").innerHTML = `Time ${this.responseText}`;           
     }
     };
     xhttp.open("GET", "/Status", true);
@@ -100,25 +91,16 @@
     }, 100) ;
 
 
-    String.prototype.toHHMMSS = function () {
-        var sec_num = parseInt(this, 10); 
-        var hours   = Math.floor(sec_num / 3600);
-        var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
-        var seconds = sec_num - (hours * 3600) - (minutes * 60);
-
-        if (hours   < 10) {hours   = "0"+hours;}
-        if (minutes < 10) {minutes = "0"+minutes;}
-        if (seconds < 10) {seconds = "0"+seconds;}
-        return hours + ':' + minutes + ':' + seconds;
+    setInterval(function ( ) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("Timer").innerHTML = this.responseText;
     }
-
-    function Timer(){
-        var start = Date.now();
-        setInterval(function() {
-        var delta = Date.now() - start; // milliseconds elapsed since start
-        document.getElementById("Timer").innerHTML = (Math.floor(delta / 1000)).toString().toHHMMSS(); // in seconds
-        }, 100); // update every 0.1 seconds
-    }
+    };
+    xhttp.open("GET", "/Timer", true);
+    xhttp.send();
+    }, 50);
 
 </script>
 
