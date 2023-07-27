@@ -23,11 +23,19 @@ const int MaxDistance = 100; //Set the max distance in cm the Node reads for the
 int Reset; //Reset for millis() timer
 
 
+void initialization(){
+    Serial.begin(9600);
+    Serial.println("creating HotSpot");
+    WiFi.softAP(ssid_HotSpot, password_HotSpot); // Startet den HotSpot mit der SSID und dem Passwort
+    Serial.println(WiFi.localIP());
+}
+
 void setup()
 {
+    initialization();
     pinMode(pingPin, OUTPUT);
     pinMode(echoPin, INPUT);
-    Serial.begin(9600);
+    
 }
 void loop()
 {
