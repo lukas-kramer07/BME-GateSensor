@@ -1,28 +1,26 @@
-// Import der benötigten libraries und header Dateien
-#include <ESP8266WiFi.h>  //WiFi Library
-#include <ESPAsyncTCP.h>  //Libraries für den Asynchronen Webserver
+// Import the necessary libraries
+#include <ESP8266WiFi.h>  // WiFi Library
+#include <ESPAsyncTCP.h>  // Libraries for async Webserver
 #include <ESPAsyncWebSrv.h>
-#include <BME280I2C.h>    //BME Libraries 
-#include <Wire.h>
-#include <ThingSpeak.h>   //ThingSpeak Library
-#include "html_code_1.h"        //html code
-#include "Network_1.h"     //Netwerkpasswort und ssid
-AsyncWebServer server(80);  //Webserver wird auf Port 80 (HTTP) gehostet
-BME280I2C bme;            // Es wird das I2C Protokoll verwendet. 
+#include "html_code_1.h"    //html code
+#include "Network_1.h"     //Password and SSid for local network
+AsyncWebServer server(80);  //Webserver hosted on Port 80 (HTTP) 
 WiFiClient client;
 
-//ssid und Passwort für lokales Netwerk
+//Password and SSid for local network
 String ssid = SSId;
 String passwort = PASSWORD;
 
-//ssid und Passwort für HotSpot
+//Password and SSid for hotSpot
 const char* ssid_HotSpot = "";   // Enter SSID here
 const char* password_HotSpot = ""; // Enter Password here
 
+//PINs and distance config for ultrasonic sensor
 #define pingPin D5
 #define echoPin D6
-int Reset;
 const int MaxDistance = 100; //Set the max distance in cm the Node reads for the gate to be closed
+
+int Reset; //Reset for millis() timer
 
 
 void setup()
