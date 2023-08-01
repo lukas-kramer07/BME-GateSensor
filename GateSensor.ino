@@ -57,11 +57,15 @@ void setup()
     //starting the Webserver
     server.begin();
 }
+
+// loop that resets the Timer when status changes
 void loop()
 {
-    Serial.println(HH_MM_SS((millis()-Reset)/1000));
-    delay(10000);
-    Serial.println("Distanz: " + String(distanceCM()) + "cm");
+    String statusTemp = Status();
+    delay(50);
+    if(statusTemp != Status()){
+        Reset = millis();
+    }
 }
 
 String values_onload(const String& var){
