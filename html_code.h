@@ -86,6 +86,9 @@ const char index_html[] PROGMEM = R"rawliteral(
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("Status").innerHTML = this.responseText;
             status = this.responseText;
+            if(satus == "open"){
+                status = "opened";
+            }
             document.getElementById("TimerDescription").innerHTML = `Time ${this.responseText}`;           
     }
     };

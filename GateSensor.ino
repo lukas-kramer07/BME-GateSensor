@@ -42,13 +42,7 @@ void setup()
     pinMode(pingPin, OUTPUT);
     pinMode(echoPin, INPUT);
     
-}
-void loop()
-{
-    Serial.println(HH_MM_SS((millis()-Reset)/1000));
-    delay(10000);
-    Serial.println("Distanz: " + String(distanceCM()) + "cm");
-
+    
     // Website load route, html code and BME values are sent
     server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
         request->send_P(200, "text/html", index_html, values_onload);
@@ -62,6 +56,12 @@ void loop()
 
     //starting the Webserver
     server.begin();
+}
+void loop()
+{
+    Serial.println(HH_MM_SS((millis()-Reset)/1000));
+    delay(10000);
+    Serial.println("Distanz: " + String(distanceCM()) + "cm");
 }
 
 String values_onload(const String& var){
