@@ -2,13 +2,13 @@
 #include <ESP8266WiFi.h>  // WiFi Library
 #include <ESPAsyncTCP.h>  // Libraries for async Webserver
 #include <ESPAsyncWebSrv.h>
-#include "html_code_1.h"    //html code
-#include "Network_1.h"     //Password and SSid for local network
+//#include "html_code_1.h"    //html code
+#include "network.h"     //Password and SSid for local network
 AsyncWebServer server(80);  //Webserver hosted on Port 80 (HTTP) 
 WiFiClient client;
 
 //Password and SSid for local network
-String ssid = SSId;
+String ssid = SSid;
 String passwort = PASSWORD;
 
 //Password and SSid for hotSpot
@@ -16,8 +16,8 @@ const char* ssid_HotSpot = "";   // Enter SSID here
 const char* password_HotSpot = ""; // Enter Password here
 
 //PINs and distance config for ultrasonic sensor
-#define pingPin D5
-#define echoPin D6
+#define pingPin D6
+#define echoPin D5
 const int MaxDistance = 100; //Set the max distance in cm the Node reads for the gate to be closed
 
 int Reset; //Reset for millis() timer
@@ -26,8 +26,8 @@ int Reset; //Reset for millis() timer
 void initialization(){
     Serial.begin(9600);
     Serial.println("creating HotSpot");
-    WiFi.softAP(ssid_HotSpot, password_HotSpot); // Startet den HotSpot mit der SSID und dem Passwort
-    Serial.println(WiFi.localIP());
+    //WiFi.softAP(ssid_HotSpot, password_HotSpot); // Startet den HotSpot mit der SSID und dem Passwort
+    //Serial.println(WiFi.localIP());
 }
 
 void setup()
@@ -40,7 +40,7 @@ void setup()
 void loop()
 {
     Serial.println(HH_MM_SS(millis()/1000));
-    delay(100);
+    delay(10000);
     Serial.println("Distanz: " + String(distanceCM()) + "cm");
 }
 
