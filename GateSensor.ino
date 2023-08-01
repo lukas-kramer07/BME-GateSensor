@@ -53,12 +53,20 @@ void setup()
     server.on("/Timer", HTTP_GET, [](AsyncWebServerRequest *request){
         request->send_P(200, "text/plain", HH_MM_SS((millis()-Reset)/1000).c_str());
     });
+    server.on("/Reset", HTTP_GET, [](AsyncWebServerRequest *request){
+        Reset();
+    });
 
     //starting the Webserver
     server.begin();
 }
 
 void loop(){}
+
+void Reset(){
+    Serial.println("reset");
+    Reset = millis();
+}
 
 String values_onload(const String& var){
   if(var == "Status"){

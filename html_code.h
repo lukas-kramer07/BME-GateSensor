@@ -79,13 +79,17 @@ const char index_html[] PROGMEM = R"rawliteral(
 </body>
 
 <script>
+    var status = "open";
     setInterval(function ( ) {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
+            if(status != this.responseText){
+                Reset();
+            }
             status = this.responseText;
             document.getElementById("Status").innerHTML = status;
-            document.getElementById("TimerDescription").innerHTML = `Time ${status}`;           
+            document.getElementById("TimerDescription").innerHTML = `Time ${status}`;            
     }
     };
     xhttp.open("GET", "/Status", true);
@@ -104,6 +108,12 @@ const char index_html[] PROGMEM = R"rawliteral(
     xhttp.send();
     }, 50);
 
+
+    function Reset(){
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("GET", "/Reset", true);
+        xhttp.send();
+    }
 </script>
 
 </html>
