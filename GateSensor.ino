@@ -61,11 +61,7 @@ void setup()
 // loop that resets the Timer when status changes
 void loop()
 {
-    String statusTemp = Status();
-    delay(50);
-    if(statusTemp != Status()){
-        Reset = millis();
-    }
+
 }
 
 String values_onload(const String& var){
