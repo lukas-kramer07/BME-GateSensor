@@ -32,8 +32,8 @@ String ssid = SSid;
 String password = PASSWORD;
 
 //Password and SSid for hotSpot
-const char* ssid_HotSpot = "Flasche";   // Enter SSID here
-const char* password_HotSpot = "123"; // Enter Password here
+const char* ssid_HotSpot = "<SSid>";   // Enter SSID here
+const char* password_HotSpot = "<password>"; // Enter Password here
 
 //==================================================================================================================================================
 //PINs and distance config for ultrasonic sensor
@@ -57,11 +57,11 @@ int reset=0; //reset for millis() timer
 #define SMTP_PORT esp_mail_smtp_port_587
 
 /* The log in credentials */
-#define AUTHOR_EMAIL "<author_mail_address>"
-#define AUTHOR_PASSWORD "<author_mail_password>"
+#define AUTHOR_EMAIL ""
+#define AUTHOR_PASSWORD ""
 
 /* Recipient email address */
-#define RECIPIENT_EMAIL "<recipient_email_address>"
+#define RECIPIENT_EMAIL ""
 
 /* Declare the global used SMTPSession object for SMTP transport */
 SMTPSession smtp;
@@ -69,7 +69,7 @@ SMTPSession smtp;
 /* Callback function to get the Email sending status */
 void smtpCallback(SMTP_Status status);
 
-int timeToMail = 120000; //time to send a mail, when door is open (20min)
+int timeToMail = 1200000; //time to send a mail, when door is open (20min)
 //==================================================================================================================================================
 
 void initialization(){
@@ -284,9 +284,10 @@ void SendMAil(){
   message.addRecipient(F("Admin"), RECIPIENT_EMAIL);
   long time_open = (millis()-reset)/1000/60;
   String htmlMsg = "<h1>Your Gate has been open for a prolonged period of time: "+String(time_open)+"min</h1><p>The message was sent via ESP device.</p>";
-  if(time_open > 60){
-    long time_openH= time_open/60;
-    String htmlMsg = "<h1>Your Gate has been open for a prolonged period of time: "+String(time_openH)+"h</h1><p>The message was sent via ESP device.</p>";
+  if(time_open >= 60){
+    long hours = floor(time_open / 60);
+    long minutes = (time_open - (hours * 60));
+    htmlMsg = "<h1>Your Gate has been open for a prolonged period of time: "+String(hours)+"h "+String(minutes)+"min</h1><p>The message was sent via ESP device.</p>";
   }
   message.html.content = htmlMsg;
 
