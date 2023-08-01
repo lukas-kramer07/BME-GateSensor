@@ -21,7 +21,7 @@ const char* password_HotSpot = "123"; // Enter Password here
 const int MaxDistance = 100; //Set the max distance in cm the Node reads for the gate to be closed
 
 int Reset=0; //Reset for millis() timer
-
+String statusTemp;
 
 void initialization(){
     Serial.begin(9600);
@@ -58,11 +58,7 @@ void setup()
     server.begin();
 }
 
-// loop that resets the Timer when status changes
-void loop()
-{
-
-}
+void loop(){}
 
 String values_onload(const String& var){
   if(var == "Status"){
