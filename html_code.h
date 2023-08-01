@@ -79,12 +79,12 @@ const char index_html[] PROGMEM = R"rawliteral(
 </body>
 
 <script>
-    var status = "open";
+var status;
     setInterval(function ( ) {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            if(status != this.responseText){
+            if(status != this.responseText && status != ""){
                 Reset();
             }
             status = this.responseText;
