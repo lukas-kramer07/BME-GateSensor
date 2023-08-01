@@ -2,18 +2,18 @@
 #include <ESP8266WiFi.h>  // WiFi Library
 #include <ESPAsyncTCP.h>  // Libraries for async Webserver
 #include <ESPAsyncWebSrv.h>
-//#include "html_code_1.h"    //html code
+#include "html_code.h"    //html code
 #include "network.h"     //Password and SSid for local network
 AsyncWebServer server(80);  //Webserver hosted on Port 80 (HTTP) 
 WiFiClient client;
 
 //Password and SSid for local network
 String ssid = SSid;
-String passwort = PASSWORD;
+String password = PASSWORD;
 
 //Password and SSid for hotSpot
-const char* ssid_HotSpot = "";   // Enter SSID here
-const char* password_HotSpot = ""; // Enter Password here
+const char* ssid_HotSpot = "Flasche";   // Enter SSID here
+const char* password_HotSpot = "123"; // Enter Password here
 
 //PINs and distance config for ultrasonic sensor
 #define pingPin D6
@@ -25,9 +25,15 @@ int Reset; //Reset for millis() timer
 
 void initialization(){
     Serial.begin(9600);
+    WiFi.begin(ssid, password);                     
+    while (WiFi.status() != WL_CONNECTED) { //waiting for WIFI connection
+      delay(1000);
+      Serial.println("...");
+    }
+
     Serial.println("creating HotSpot");
-    //WiFi.softAP(ssid_HotSpot, password_HotSpot); // Startet den HotSpot mit der SSID und dem Passwort
-    //Serial.println(WiFi.localIP());
+    WiFi.softAP(ssid_HotSpot, password_HotSpot); // Startet den HotSpot mit der SSID und dem Passwort
+    Serial.println(WiFi.localIP());
 }
 
 void setup()
