@@ -20,7 +20,7 @@ const char* password_HotSpot = "123"; // Enter Password here
 #define echoPin D5
 const int MaxDistance = 100; //Set the max distance in cm the Node reads for the gate to be closed
 
-int Reset=0; //Reset for millis() timer
+int reset=0; //Reset for millis() timer
 String statusTemp;
 
 void initialization(){
@@ -51,7 +51,7 @@ void setup()
         request->send_P(200, "text/plain", Status().c_str());
     });
     server.on("/Timer", HTTP_GET, [](AsyncWebServerRequest *request){
-        request->send_P(200, "text/plain", HH_MM_SS((millis()-Reset)/1000).c_str());
+        request->send_P(200, "text/plain", HH_MM_SS((millis()-reset)/1000).c_str());
     });
     server.on("/Reset", HTTP_GET, [](AsyncWebServerRequest *request){
         Reset();
@@ -64,8 +64,7 @@ void setup()
 void loop(){}
 
 void Reset(){
-    Serial.println("reset");
-    Reset = millis();
+    reset = millis();
 }
 
 String values_onload(const String& var){
@@ -73,7 +72,7 @@ String values_onload(const String& var){
     return Status();
   }
   else if(var == "Timer"){
-    return HH_MM_SS((millis()-Reset)/1000);
+    return HH_MM_SS((millis()-reset)/1000);
   }
   return String();
 }
