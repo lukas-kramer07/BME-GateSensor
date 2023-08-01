@@ -20,7 +20,7 @@ const char* password_HotSpot = "123"; // Enter Password here
 #define echoPin D5
 const int MaxDistance = 100; //Set the max distance in cm the Node reads for the gate to be closed
 
-int Reset; //Reset for millis() timer
+int Reset=0; //Reset for millis() timer
 
 
 void initialization(){
@@ -45,10 +45,35 @@ void setup()
 }
 void loop()
 {
-    Serial.println(HH_MM_SS(millis()/1000));
+    Serial.println(HH_MM_SS((millis()-Reset)/1000));
     delay(10000);
     Serial.println("Distanz: " + String(distanceCM()) + "cm");
+
+    // Website load route, html code and BME values are sent
+    server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
+        request->send_P(200, "text/html", index_html, values_onload);
+    });
+    server.on("/Status", HTTP_GET, [](AsyncWebServerRequest *request){
+        request->send_P(200, "text/plain", Status().c_str());
+    });
+    server.on("/Timer", HTTP_GET, [](AsyncWebServerRequest *request){
+        request->send_P(200, "text/plain", HH_MM_SS((millis()-Reset)/1000).c_str());
+    });
+
+    //starting the Webserver
+    server.begin();
 }
+
+String values_onload(const String& var){
+  if(var == "Status"){
+    return Status();
+  }
+  else if(var == "Timer"){
+    return HH_MM_SS((millis()-Reset)/1000);
+  }
+  return String();
+}
+
 
 String Status(){
     if(distanceCM() > 100){
