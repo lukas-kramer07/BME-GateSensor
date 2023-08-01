@@ -83,11 +83,8 @@ const char index_html[] PROGMEM = R"rawliteral(
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("Status").innerHTML = this.responseText;
             status = this.responseText;
-            if(status == "open"){
-                status = "opened";
-            }
+            document.getElementById("Status").innerHTML = status;
             document.getElementById("TimerDescription").innerHTML = `Time ${status}`;           
     }
     };
