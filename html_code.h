@@ -79,14 +79,11 @@ const char index_html[] PROGMEM = R"rawliteral(
 </body>
 
 <script>
-var status;
+  var status;
     setInterval(function ( ) {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            if(status != this.responseText && status != ""){
-                Reset();
-            }
             status = this.responseText;
             document.getElementById("Status").innerHTML = status;
             document.getElementById("TimerDescription").innerHTML = `Time ${status}`;            
@@ -94,7 +91,7 @@ var status;
     };
     xhttp.open("GET", "/Status", true);
     xhttp.send();
-    }, 100) ;
+    }, 500) ;
 
 
     setInterval(function ( ) {
@@ -107,13 +104,6 @@ var status;
     xhttp.open("GET", "/Timer", true);
     xhttp.send();
     }, 50);
-
-
-    function Reset(){
-        var xhttp = new XMLHttpRequest();
-        xhttp.open("GET", "/Reset", true);
-        xhttp.send();
-    }
 </script>
 
 </html>

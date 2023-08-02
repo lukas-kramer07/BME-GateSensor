@@ -43,7 +43,7 @@ const int MaxDistance = 100; //Set the max distance in cm the Node reads for the
 
 //==================================================================================================================================================
 int reset=0; //reset for millis() timer
-
+String status;
 //==================================================================================================================================================
 //E-MAIL
 /** The smtp host name e.g. smtp.gmail.com for GMail or smtp.office365.com for Outlook or smtp.mail.yahoo.com */
@@ -104,20 +104,21 @@ void setup()
     server.on("/Timer", HTTP_GET, [](AsyncWebServerRequest *request){
         request->send_P(200, "text/plain", HH_MM_SS((millis()-reset)/1000).c_str());
     });
-    server.on("/Reset", HTTP_GET, [](AsyncWebServerRequest *request){
+    /*/server.on("/Reset", HTTP_GET, [](AsyncWebServerRequest *request){
         Reset();
-    });
+    });/*/
 
     //starting the Webserver
     server.begin();
 }
 
 void loop(){
-  delay(100);
+  delay(300);
   if(millis()-reset > timeToMail && Status() == "open"){
     SendMAil();
     delay(timeToMail);
   }
+  StatusCheck();
 }
 
 void Reset(){
@@ -142,6 +143,20 @@ String Status(){
     else{
         return "closed";
     }
+}
+void StatusCheck(){
+  String statusTemp;
+    if(distanceCM() > 100){
+        statusTemp = "open";
+    }
+    else{
+        statusTemp = "closed";
+    }
+    if(status != statusTemp && status !=""){
+      Serial.println("Reset");
+      Reset();
+    }
+  status = statusTemp;
 }
 long distanceCM(){
     long duration,cm;
