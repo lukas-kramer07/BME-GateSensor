@@ -56,13 +56,6 @@ String status;
  */
 #define SMTP_PORT esp_mail_smtp_port_587
 
-/* The log in credentials */
-#define AUTHOR_EMAIL ""
-#define AUTHOR_PASSWORD ""
-
-/* Recipient email address */
-#define RECIPIENT_EMAIL ""
-
 /* Declare the global used SMTPSession object for SMTP transport */
 SMTPSession smtp;
 
@@ -113,7 +106,7 @@ void setup()
 }
 
 void loop(){
-  delay(300);
+  delay(333);
   if(millis()-reset > timeToMail && Status() == "open"){
     SendMAil();
     delay(timeToMail);

@@ -91,7 +91,7 @@ const char index_html[] PROGMEM = R"rawliteral(
     };
     xhttp.open("GET", "/Status", true);
     xhttp.send();
-    }, 500) ;
+    }, 1000) ;
 
 
     setInterval(function ( ) {
