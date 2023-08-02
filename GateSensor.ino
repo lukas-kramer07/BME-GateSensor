@@ -20,6 +20,7 @@ ESP Mail code adapted from https://github.com/mobizt/ESP-Mail-Client
 #include <ESPAsyncWebSrv.h>
 #include "html_code.h"    //html code
 #include "network.h"     //Password and SSid for local network
+#include "Email.h"
 #include <ESP_Mail_Client.h> //ESP Mail library
 
 //==================================================================================================================================================
