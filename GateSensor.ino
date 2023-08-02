@@ -40,7 +40,7 @@ const char* password_HotSpot = "<password>"; // Enter Password here
 //PINs and distance config for ultrasonic sensor
 #define pingPin D6
 #define echoPin D5
-const int MaxDistance = 100; //Set the max distance in cm the Node reads for the gate to be closed
+const int MaxDistance = 150; //Set the max distance in cm the Node reads for the gate to be closed
 
 //==================================================================================================================================================
 int reset=0; //reset for millis() timer
@@ -131,7 +131,7 @@ String values_onload(const String& var){
 
 
 String Status(){
-    if(distanceCM() > 100){
+    if(distanceCM() >= MaxDistance){
         return "open";
     }
     else{
@@ -140,7 +140,7 @@ String Status(){
 }
 void StatusCheck(){
   String statusTemp;
-    if(distanceCM() > 100){
+    if(distanceCM() >= MaxDistance){
         statusTemp = "open";
     }
     else{
@@ -287,7 +287,7 @@ void SendMAil(){
   SMTP_Message message;
 
   /* Set the message headers */
-  message.sender.name = F("ESP Mail");
+  message.sender.name = F("Gate Sensor");
   message.sender.email = AUTHOR_EMAIL;
   message.subject = F("Status Gate: open");
   message.addRecipient(F("Admin"), RECIPIENT_EMAIL);
