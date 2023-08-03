@@ -43,7 +43,8 @@ const char* password_HotSpot = "<password>"; // Enter Password here
 const int MaxDistance = 150; //Set the max distance in cm the Node reads for the gate to be closed
 
 //==================================================================================================================================================
-int reset=0; //reset for millis() timer
+unsigned long reset=0; //reset for millis() timer
+unsigned long lastMailTime=0;
 String status;
 //==================================================================================================================================================
 //E-MAIL
@@ -63,7 +64,7 @@ SMTPSession smtp;
 /* Callback function to get the Email sending status */
 void smtpCallback(SMTP_Status status);
 
-int timeToMail = 1200000; //time to send a mail, when door is open (20min)
+unsigned long timeToMail = 120000; //time to send a mail, when door is open (20min)
 //==================================================================================================================================================
 
 void initialization(){
@@ -108,15 +109,23 @@ void setup()
 
 void loop(){
   delay(333);
-  if(millis()-reset > timeToMail && Status() == "open"){
-    SendMAil();
-    delay(timeToMail);
+  if((millis()-(reset+lastMailTime)) > timeToMail){
+    Serial.println("check: "+ String(millis()/1000/60));
+    Serial.println("test: "+ String((reset+lastMailTime)/1000/60));
+    StatusCheck();
+    Serial.println(status);
+    if((millis()-(reset+lastMailTime)) > timeToMail && Status() == "open"){
+      lastMailTime=millis()-reset;
+      Serial.println((reset+lastMailTime)/1000/60);
+      SendMAil();
+    }
   }
   StatusCheck();
 }
 
 void Reset(){
     reset = millis();
+    lastMailTime=0;
 }
 
 String values_onload(const String& var){
