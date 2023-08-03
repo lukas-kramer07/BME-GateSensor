@@ -114,11 +114,12 @@ void loop(){
     Serial.println("test: "+ String((reset+lastMailTime)/1000/60));
     StatusCheck();
     Serial.println(status);
-    if((millis()-(reset+lastMailTime)) > timeToMail && Status() == "open"){
+    if((millis()-(reset+lastMailTime)) > timeToMail && status == "open"){
       lastMailTime=millis()-reset;
       Serial.println((reset+lastMailTime)/1000/60);
       SendMAil();
     }
+    delay(333);
   }
   StatusCheck();
 }
