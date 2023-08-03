@@ -64,7 +64,7 @@ SMTPSession smtp;
 /* Callback function to get the Email sending status */
 void smtpCallback(SMTP_Status status);
 
-unsigned long timeToMail = 120000; //time to send a mail, when door is open (20min)
+unsigned long timeToMail = 1200000; //time to send a mail, when door is open (20min)
 //==================================================================================================================================================
 
 void initialization(){
