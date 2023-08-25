@@ -1,6 +1,6 @@
 # Gate Status Sensor with Email Alerts
 
-![](https://imgur.com/gallery/nLfSXVl)
+<img src="https://i.imgur.com/lwwhX2t.png" alt="Clash" width="2000">
 
 ## Introduction
 
