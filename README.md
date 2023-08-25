@@ -1,6 +1,6 @@
 # Gate Status Sensor with Email Alerts
 
-![Gate_sensor](image.png)
+![](https://imgur.com/gallery/nLfSXVl)
 
 ## Introduction
 
